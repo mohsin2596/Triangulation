@@ -34,6 +34,27 @@ class DrawTriangle extends CustomPainter {
 
         break;
 
+      case TriangleType.leftCorner:
+        path.lineTo(0, size.height);
+        path.lineTo(size.width, 0);
+        path.lineTo(0, 0);
+
+        break;
+
+      case TriangleType.rightCorner:
+        path.lineTo(size.width, size.height);
+        path.lineTo(size.width, 0);
+        path.lineTo(0, 0);
+
+        break;
+
+      case TriangleType.inverted:
+        path.lineTo(size.width / 2, size.height);
+        path.lineTo(size.width, 0);
+        path.lineTo(0, 0);
+
+        break;
+
       default:
         break;
     }
