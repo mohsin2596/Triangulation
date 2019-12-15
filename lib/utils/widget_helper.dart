@@ -6,9 +6,9 @@ class TriangleWidgetHelper {
   var numOfColumns = 0;
 
   //Default Colors for pattern
-  Color colorOne = Color(0xFF930D22);
-  Color colorTwo = Color(0xFFE22E45);
-  Color colorThree = Color(0xFF13273A);
+  Color colorOne;
+  Color colorTwo;
+  Color colorThree;
 
   final BuildContext context;
 

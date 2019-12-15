@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:triangulation/constans/strings.dart';
 import 'package:triangulation/utils/widget_helper.dart';
+import 'package:triangulation/constans/strings.dart';
+import 'package:triangulation/widgets/color_picker_btn.dart';
 
 class MainScreen extends StatefulWidget {
   @override
@@ -18,10 +19,21 @@ class _MainScreenState extends State<MainScreen> {
   //Boolean to help us hide and show tweak box
   var isEditing = false;
 
+  //Default colors
+  Color colorOne = Color(0xFF930D22);
+  Color colorTwo = Color(0xFFE22E45);
+  Color colorThree = Color(0xFF13273A);
+
+  Color pickerColorOne;
+
   @override
   Widget build(BuildContext context) {
+    final screenHeight = MediaQuery.of(context).size.height;
+    final tweakBoxHeight = screenHeight * 0.5;
+
     var widgetHelper = TriangleWidgetHelper(context: context);
     widgetHelper.setRowsCols(numOfRows, numOfColumns);
+    widgetHelper.setColors(colorOne, colorTwo, colorThree);
 
     SystemChrome.setEnabledSystemUIOverlays(SystemUiOverlay.values);
     return Scaffold(
@@ -51,19 +63,28 @@ class _MainScreenState extends State<MainScreen> {
                 AnimatedContainer(
                   duration: Duration(milliseconds: 300),
                   width: double.infinity,
-                  height: isEditing ? 250 : 0,
+                  height: isEditing ? tweakBoxHeight : 0,
                   color: Color(0XD9000000),
                   child: Column(
                     children: <Widget>[
                       Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Text(
-                          'Tweak It',
+                          Strings.tweakBoxTitle,
                           style: TextStyle(
                               fontSize: 18,
                               fontWeight: FontWeight.w500,
                               color: Colors.white),
                         ),
+                      ),
+                      Row(
+                        children: <Widget>[
+                          ColorPickerBtn(
+                            title: 'Color 1',
+                            color: colorOne,
+                            onColorPicked: changeColorOne,
+                          )
+                        ],
                       ),
                     ],
                   ),
@@ -74,5 +95,9 @@ class _MainScreenState extends State<MainScreen> {
         ),
       ),
     );
+  }
+
+  void changeColorOne(Color color) {
+    setState(() => colorOne = color);
   }
 }
