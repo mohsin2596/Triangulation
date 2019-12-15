@@ -1,9 +1,12 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:triangulation/utils/widget_helper.dart';
 import 'package:triangulation/constans/strings.dart';
 import 'package:triangulation/widgets/color_picker_btn.dart';
 import 'package:triangulation/widgets/size_slider.dart';
+import 'package:random_color/random_color.dart';
 
 class MainScreen extends StatefulWidget {
   @override
@@ -25,8 +28,6 @@ class _MainScreenState extends State<MainScreen> {
   Color colorTwo = Color(0xFFE22E45);
   Color colorThree = Color(0xFF13273A);
 
-  Color pickerColorOne;
-
   @override
   Widget build(BuildContext context) {
     final screenHeight = MediaQuery.of(context).size.height;
@@ -37,6 +38,7 @@ class _MainScreenState extends State<MainScreen> {
     widgetHelper.setColors(colorOne, colorTwo, colorThree);
 
     SystemChrome.setEnabledSystemUIOverlays([]);
+
     return Scaffold(
       floatingActionButton: FloatingActionButton(
         child: isEditing ? Icon(Icons.close) : Icon(Icons.format_paint),
@@ -117,6 +119,10 @@ class _MainScreenState extends State<MainScreen> {
                           onChange: changeColumns,
                         ),
                       ),
+                      RaisedButton.icon(
+                          onPressed: makeRandomPattern,
+                          icon: Icon(Icons.all_inclusive),
+                          label: Text(Strings.random))
                     ],
                   ),
                 )
@@ -146,5 +152,22 @@ class _MainScreenState extends State<MainScreen> {
 
   void changeColumns(double newValue) {
     setState(() => numOfColumns = newValue.round());
+  }
+
+  //Would generate a random pattern from tweak menu
+  void makeRandomPattern() {
+    RandomColor _randomColor = RandomColor();
+    Random randomNum = new Random();
+
+    setState(() {
+      colorOne = _randomColor.randomColor();
+      colorTwo = _randomColor.randomColor();
+      colorThree = _randomColor.randomColor();
+
+      numOfRows = randomNum.nextInt(35) + 6;
+      numOfColumns = randomNum.nextInt(35) + 6;
+
+      print("Rows: $numOfRows Columns: $numOfColumns");
+    });
   }
 }

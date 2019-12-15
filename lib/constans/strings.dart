@@ -8,4 +8,6 @@ class Strings {
 
   static final String rowSlider = 'Rows';
   static final String colSlider = 'Columns';
+
+  static final String random = 'Randomize';
 }
