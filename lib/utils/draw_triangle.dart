@@ -1,3 +1,5 @@
+import 'dart:ui' as prefix0;
+
 import 'package:flutter/material.dart';
 
 //Variations of triangle supported by Custom Painter
@@ -24,6 +26,18 @@ class DrawTriangle extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     var path = Path();
+
+    final rect = Rect.fromLTWH(0.0, 0.0, size.width, size.height);
+    final gradient = LinearGradient(
+      begin: Alignment.topCenter,
+      end: Alignment.bottomCenter,
+      colors: [
+        color,
+        color.withOpacity(0.8),
+      ],
+    );
+
+    _paint.shader = gradient.createShader(rect);
 
     switch (type) {
       case TriangleType.normal:
@@ -59,10 +73,6 @@ class DrawTriangle extends CustomPainter {
         break;
     }
 
-    //right angle triangle
-//    path.lineTo(size.width, size.height / 2);
-//    path.lineTo(0, size.height);
-//    path.close();
     canvas.drawPath(path, _paint);
   }
 

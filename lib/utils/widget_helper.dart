@@ -19,15 +19,14 @@ class TriangleWidgetHelper {
     var screenSize = MediaQuery.of(context).size;
     var width = screenSize.width / numOfColumns;
 
-    //Canvas on which triangles will be drawn has roughly 3/5 of screen's height
-    var height = ((screenSize.height * 3) / 5) / numOfRows;
+    var height = screenSize.height / numOfRows;
 
     for (int i = 0; i < numOfColumns; i++) {
       triangles.add(
         CustomPaint(
           size: Size(width, height),
-          painter: DrawTriangle(
-              color: Colors.transparent, type: TriangleType.normal),
+          painter:
+              DrawTriangle(color: Color(0xFF930D22), type: TriangleType.normal),
         ),
       );
     }
@@ -41,10 +40,6 @@ class TriangleWidgetHelper {
     for (int i = 0; i < numOfRows; i++) {
       children.add(Row(children: getTriangleRow(context)));
     }
-
-    children.add(Expanded(
-      child: tweakContainer(),
-    ));
 
     return children;
   }
@@ -65,15 +60,14 @@ class TriangleWidgetHelper {
     var screenSize = MediaQuery.of(context).size;
     var width = screenSize.width / numOfColumns;
 
-    //Canvas on which triangles will be drawn has roughly 3/5 of screen's height
-    var height = ((screenSize.height * 3) / 5) / numOfRows;
+    var height = screenSize.height / numOfRows;
 
     //Left inverted triangle
     triangles.add(
       CustomPaint(
         size: Size(width / 2, height),
         painter: DrawTriangle(
-            color: Colors.transparent, type: TriangleType.leftCorner),
+            color: Color(0xFFE22E45), type: TriangleType.leftCorner),
       ),
     );
 
@@ -82,7 +76,7 @@ class TriangleWidgetHelper {
         CustomPaint(
           size: Size(width, height),
           painter: DrawTriangle(
-              color: Colors.transparent, type: TriangleType.inverted),
+              color: Color(0xFF13273A), type: TriangleType.inverted),
         ),
       );
     }
@@ -92,7 +86,7 @@ class TriangleWidgetHelper {
       CustomPaint(
         size: Size(width / 2, height),
         painter: DrawTriangle(
-            color: Colors.transparent, type: TriangleType.rightCorner),
+            color: Color(0xFFE22E45), type: TriangleType.rightCorner),
       ),
     );
 
