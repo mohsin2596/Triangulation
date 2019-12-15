@@ -4,6 +4,12 @@ import 'draw_triangle.dart';
 class TriangleWidgetHelper {
   var numOfRows = 0;
   var numOfColumns = 0;
+
+  //Default Colors for pattern
+  Color colorOne = Color(0xFF930D22);
+  Color colorTwo = Color(0xFFE22E45);
+  Color colorThree = Color(0xFF13273A);
+
   final BuildContext context;
 
   TriangleWidgetHelper({this.context});
@@ -11,6 +17,12 @@ class TriangleWidgetHelper {
   void setRowsCols(int rows, int cols) {
     this.numOfRows = rows;
     this.numOfColumns = cols;
+  }
+
+  void setColors(Color colorOne, Color colorTwo, Color colorThree) {
+    this.colorOne = colorOne;
+    this.colorTwo = colorTwo;
+    this.colorThree = colorThree;
   }
 
   List<CustomPaint> getTriangleRow(BuildContext context) {
@@ -25,8 +37,7 @@ class TriangleWidgetHelper {
       triangles.add(
         CustomPaint(
           size: Size(width, height),
-          painter:
-              DrawTriangle(color: Color(0xFF930D22), type: TriangleType.normal),
+          painter: DrawTriangle(color: colorOne, type: TriangleType.normal),
         ),
       );
     }
@@ -66,8 +77,7 @@ class TriangleWidgetHelper {
     triangles.add(
       CustomPaint(
         size: Size(width / 2, height),
-        painter: DrawTriangle(
-            color: Color(0xFFE22E45), type: TriangleType.leftCorner),
+        painter: DrawTriangle(color: colorTwo, type: TriangleType.leftCorner),
       ),
     );
 
@@ -75,8 +85,7 @@ class TriangleWidgetHelper {
       triangles.add(
         CustomPaint(
           size: Size(width, height),
-          painter: DrawTriangle(
-              color: Color(0xFF13273A), type: TriangleType.inverted),
+          painter: DrawTriangle(color: colorThree, type: TriangleType.inverted),
         ),
       );
     }
@@ -85,29 +94,10 @@ class TriangleWidgetHelper {
     triangles.add(
       CustomPaint(
         size: Size(width / 2, height),
-        painter: DrawTriangle(
-            color: Color(0xFFE22E45), type: TriangleType.rightCorner),
+        painter: DrawTriangle(color: colorTwo, type: TriangleType.rightCorner),
       ),
     );
 
     return triangles;
-  }
-
-  Widget tweakContainer() {
-    return Container(
-      width: double.infinity,
-      color: Color(0X1A000000),
-      child: Column(
-        children: <Widget>[
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Text(
-              'Tweak It',
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
-            ),
-          ),
-        ],
-      ),
-    );
   }
 }

@@ -15,6 +15,9 @@ class _MainScreenState extends State<MainScreen> {
   //Number of columns for canvas
   var numOfColumns = 10;
 
+  //Boolean to help us hide and show tweak box
+  var isEditing = false;
+
   @override
   Widget build(BuildContext context) {
     var widgetHelper = TriangleWidgetHelper(context: context);
@@ -22,9 +25,16 @@ class _MainScreenState extends State<MainScreen> {
 
     SystemChrome.setEnabledSystemUIOverlays(SystemUiOverlay.values);
     return Scaffold(
-//      appBar: AppBar(
-//        title: Text(Strings.appTitle),
-//      ),
+      floatingActionButton: FloatingActionButton(
+        child: isEditing ? Icon(Icons.close) : Icon(Icons.format_paint),
+        backgroundColor: Colors.white,
+        foregroundColor: Colors.black87,
+        onPressed: () {
+          setState(() {
+            isEditing = !isEditing;
+          });
+        },
+      ),
       body: Container(
         //Triangles will be stacked onto one another to fill screen
         child: Stack(
@@ -34,6 +44,31 @@ class _MainScreenState extends State<MainScreen> {
             ),
             Column(
               children: widgetHelper.invertedColumnChildren(context),
+            ),
+            Column(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: <Widget>[
+                AnimatedContainer(
+                  duration: Duration(milliseconds: 300),
+                  width: double.infinity,
+                  height: isEditing ? 250 : 0,
+                  color: Color(0XD9000000),
+                  child: Column(
+                    children: <Widget>[
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text(
+                          'Tweak It',
+                          style: TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.w500,
+                              color: Colors.white),
+                        ),
+                      ),
+                    ],
+                  ),
+                )
+              ],
             )
           ],
         ),
