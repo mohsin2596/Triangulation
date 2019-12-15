@@ -36,7 +36,7 @@ class _MainScreenState extends State<MainScreen> {
     widgetHelper.setRowsCols(numOfRows, numOfColumns);
     widgetHelper.setColors(colorOne, colorTwo, colorThree);
 
-    SystemChrome.setEnabledSystemUIOverlays(SystemUiOverlay.values);
+    SystemChrome.setEnabledSystemUIOverlays([]);
     return Scaffold(
       floatingActionButton: FloatingActionButton(
         child: isEditing ? Icon(Icons.close) : Icon(Icons.format_paint),
